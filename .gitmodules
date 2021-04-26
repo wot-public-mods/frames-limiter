@@ -1,0 +1,3 @@
+[submodule "3rdparty/xfw_buildlib"]
+	path = 3rdparty/xfw_buildlib
+	url = https://gitlab.com/xvm/xfw/xfw-buildscript-library

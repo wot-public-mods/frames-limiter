@@ -1,0 +1,15 @@
+<DOMSymbolItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ns.adobe.com/xfl/2008/" name="FramesLimiterSettingsLobbyHookUI" itemID="6088265a-0000000a" linkageExportForAS="true" linkageBaseClass="com.poliroid.gui.frames_limiter.LobbyHook" linkageClassName="FramesLimiterSettingsLobbyHookUI" lastModified="1619535450" lastUniqueIdentifier="3">
+  <timeline>
+    <DOMTimeline name="FramesLimiterSettingsLobbyHookUI">
+      <layers>
+        <DOMLayer name="Layer 1" color="#9933CC" current="true" isSelected="true" autoNamed="false" heightLiteral="24">
+          <frames>
+            <DOMFrame index="0" keyMode="9728">
+              <elements/>
+            </DOMFrame>
+          </frames>
+        </DOMLayer>
+      </layers>
+    </DOMTimeline>
+  </timeline>
+</DOMSymbolItem>

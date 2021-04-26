@@ -1,0 +1,11 @@
+version: 1.0.{build}
+image: Visual Studio 2019
+install:
+- pwsh: >-
+    git submodule -q update --init --recursive
+
+    $host.SetShouldExit(0)
+build_script:
+- ps: ./build.ps1
+artifacts:
+- path: ~output/deploy/*

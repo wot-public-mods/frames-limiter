@@ -1,0 +1,34 @@
+<DOMDocument xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ns.adobe.com/xfl/2008/" backgroundColor="#999999" frameRate="50" currentTimeline="1" xflVersion="2.971" creatorInfo="Adobe Animate" platform="Windows" versionInfo="Saved by Animate Windows 20.0 build 19255" majorVersion="20" buildNumber="19255" rulerVisible="true" viewAngle3D="31.2421376975057" nextSceneIdentifier="2" playOptionsPlayLoop="false" playOptionsPlayPages="false" playOptionsPlayFrameActions="false" filetypeGUID="DD0DDBBF-5BEF-45B2-9F24-A3048D2A676F" fileGUID="98D1127A54F12A47AAFCCECC78266EBA">
+     <symbols>
+          <Include href="FramesLimiterSettingsBattleHookUI.xml" itemID="6088269c-0000000c" lastModified="1619535516"/>
+     </symbols>
+     <timelines>
+          <DOMTimeline name="Scene 1">
+               <layers>
+                    <DOMLayer name="Layer 1" color="#4F80FF" current="true" isSelected="true" heightLiteral="24">
+                         <frames>
+                              <DOMFrame index="0" keyMode="9728">
+                                   <elements/>
+                              </DOMFrame>
+                         </frames>
+                    </DOMLayer>
+               </layers>
+          </DOMTimeline>
+     </timelines>
+     <scripts/>
+     <persistentData>
+          <PD n="com.air.sdk.path"/>
+     </persistentData>
+     <PrinterSettings/>
+     <publishHistory>
+          <PublishItem publishSize="2394" publishTime="1619214413"/>
+          <PublishItem publishSize="2394" publishTime="1619214412"/>
+          <PublishItem publishSize="2394" publishTime="1619214094"/>
+          <PublishItem publishSize="2394" publishTime="1619213731"/>
+          <PublishItem publishSize="2299" publishTime="1619213577"/>
+          <PublishItem publishSize="2299" publishTime="1619213570"/>
+          <PublishItem publishSize="2228" publishTime="1619212972"/>
+          <PublishItem publishSize="2228" publishTime="1619212970"/>
+          <PublishItem publishSize="2228" publishTime="1619212969"/>
+     </publishHistory>
+</DOMDocument>
