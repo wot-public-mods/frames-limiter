@@ -19,6 +19,7 @@ def xfw_is_module_loaded():
 
 import logging
 import BigWorld
+import constants
 
 from account_helpers.settings_core.options import UserPrefsFloatSetting, UserPrefsBoolSetting
 from frameworks.wulf import WindowLayer
@@ -35,13 +36,6 @@ from PlayerEvents import g_playerEvents
 from Settings import g_instance as settingsInst
 from skeletons.gui.shared.utils import IHangarSpace
 
-TOOLTIP_TEXT = """{HEADER}Максимальная частота кадров{/HEADER}{BODY}Задаётся максимальная частота кадров для 3D рендеринга.
-Ограничение частоты кадров чаще всего используется для:
-
-• Cнижения нагрузки и как следствие нагрева с шумом у видеокарты.
-• Увеличение стабильности и плавности игрового процесса.
-• Увеличения автономности при использовании ноутбука.{/BODY}"""
-
 SETTINGS_LOBBY_LINKAGE = 'FramesLimiterSettingsLobbyHookUI'
 SETTINGS_LOBBY_HOOK = 'frames_limiter_settings_lobby_hook.swf'
 
@@ -56,6 +50,21 @@ CPP_PACKAGE_NAME = 'poliroid.frames_limiter'
 CPP_PACKAGE_FILENAME = 'frames_limiter.pyd'
 CPP_MODULE_NAME = 'Frames_Limiter'
 CPP_OBJECT_NAME = 'Frames_Limiter_Instance'
+
+labeles_l10n = {
+	'ru': {
+		'checkboxText': 'Максимальная частота кадров',
+		'tooltipText': "{HEADER}Максимальная частота кадров{/HEADER}{BODY}Задаётся максимальная частота кадров для 3D рендеринга.\nОграничение частоты кадров чаще всего используется для:\n\n• Cнижения нагрузки и как следствие нагрева с шумом у видеокарты.\n• Увеличение стабильности и плавности игрового процесса.\n• Увеличения автономности при использовании ноутбука.{/BODY}",
+	},
+	'en': {
+		'checkboxText': 'Maximum frame rate',
+		'tooltipText': "{HEADER}Maximum frame rate{/HEADER}{BODY}Sets the maximum frame rate for 3D rendering.\nFrame rate limitation is most often used for:\n\n• Reducing the load and as a consequence of heat and noise in the video card.\n• Increased stability and smooth gameplay.\n• Increase the battery life when using a laptop.{/BODY}",
+	}
+}
+LOCALIZATION = labeles_l10n.get(constants.DEFAULT_LANGUAGE, None)
+if not LOCALIZATION:
+	LOCALIZATION = labeles_l10n.get('en')
+l10n = lambda key: LOCALIZATION.get(key, key)
 
 logger = logging.getLogger('FramesLimiter')
 
@@ -182,9 +191,11 @@ class FramesLimiterController(object):
 class FramesLimiterSettingsHolder:
 
 	def getFramesLimiterSettings(self):
+		tooltipText = l10n('tooltipText')
+		checkboxText = l10n('checkboxText')
 		return {
-			'label': 'Максимальная частота кадров',
-			'toolTip': TOOLTIP_TEXT,
+			'label': checkboxText,
+			'toolTip': tooltipText,
 			'enabled': g_controller.enabled,
 			'value': g_controller._framesLimit,
 		}
