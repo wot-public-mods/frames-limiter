@@ -79,11 +79,6 @@ namespace frames_limiter {
 
 #if defined(_WIN64)
 			_target_final -= 0x100000000;
-
-			//furthermore, we were fucked by RTSS
-			if (_target_final[0] == 0xFF && _target_final[1] == 0x25) {
-				_target_final = reinterpret_cast<uint8_t*>(MemoryHelper::get_64bit(reinterpret_cast<size_t>(_target_final + 6)));
-			}
 #endif
 		}
 		
