@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.0.3
+
+* fix minor CPU load
+
 ## v1.0.2
 
 * fix crash with NZXT CAM software

@@ -11,7 +11,9 @@
 
 #define DXGISWAPCHAIN_PRESENT_INDEX 8
 
-#define DISABLE_SLEEP_TIME_LEFT 3'000'000
+// used in the waiting loop sleep logic
+// can be lower, close to 1`000`000 (1 ms)
+#define DISABLE_SLEEP_TIME_LEFT 2'000'000
 #define SLEEP_TIMEOUT_QUADNS 1'000
 
 
@@ -148,7 +150,7 @@ namespace frames_limiter {
 
 		//wait for long time using sleep
 		while (_curr_frametick - _last_frametick < _target_frametime && 
-			(_target_frametime - (_curr_frametick - _last_frametick) > DISABLE_SLEEP_TIME_LEFT)) { //can be 2ms
+			(_target_frametime - (_curr_frametick - _last_frametick) > DISABLE_SLEEP_TIME_LEFT)) {
 			NtDelayExecution(FALSE, &_sleep_interval);
 			_curr_frametick = TimeHelper::get_time_ns();
 		}	
