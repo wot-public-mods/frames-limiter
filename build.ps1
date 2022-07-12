@@ -45,8 +45,8 @@ Download-NativeDevelPackage -OutputPath ./~output/build_cpp_prefix/
 #
 
 function Build-Native() {
-    Build-CmakeProject -SourceDirectory ./src_cpp -BuildDirectory "$root/~output/build_cpp_library/" -InstallDirectory "$root/~output/component_native/" -PrefixDirectory "$root/~output/build_cpp_prefix/" -Toolchain "v142" -Arch "Win32"
-    Build-CmakeProject -SourceDirectory ./src_cpp -BuildDirectory "$root/~output/build_cpp_library/" -InstallDirectory "$root/~output/component_native/" -PrefixDirectory "$root/~output/build_cpp_prefix/" -Toolchain "v142" -Arch "x64"
+    Build-CmakeProject -SourceDirectory ./src_cpp -BuildDirectory "$root/~output/build_cpp_library/" -InstallDirectory "$root/~output/component_native/" -PrefixDirectory "$root/~output/build_cpp_prefix/" -Generator "Visual Studio 17 2022" -Toolchain "v143" -Arch "Win32"
+    Build-CmakeProject -SourceDirectory ./src_cpp -BuildDirectory "$root/~output/build_cpp_library/" -InstallDirectory "$root/~output/component_native/" -PrefixDirectory "$root/~output/build_cpp_prefix/" -Generator "Visual Studio 17 2022" -Toolchain "v143" -Arch "x64"
 }
 
 Build-Native

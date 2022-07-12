@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.0.4
+
+* fix compatibility with XFW.Native 2.7.0
+
 ## v1.0.3
 
 * fix minor CPU load

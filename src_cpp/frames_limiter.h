@@ -4,10 +4,7 @@
 
 #pragma once
 
-#include <kiero.h>
-#include <d3d11.h>
-#include <MinHook.h>
-
+#include <xfw_hooks_d3d.h>
 
 namespace frames_limiter {
 	
@@ -27,16 +24,11 @@ namespace frames_limiter {
 	private:
 		bool dxgi_hook();
 		bool dxgi_unhook();
-		void* get_hook_target();
-
 		void frameTick();
 
-
-		static HRESULT __stdcall CallBack_DxgiPresent(IDXGISwapChain* pSwapChain, UINT SyncInterval, UINT Flags);
-		static DXGI_SwapChain_Present_typedef dxgi_swapchain_present_o;
+		void onPresent(IDXGISwapChain* swapChain, UINT, UINT);
+	
 	private:
-		static FramesLimiter* _instance;
-
 		uint64_t _target_fps = 0;
 		uint64_t _target_frametime = 0;
 
@@ -45,7 +37,7 @@ namespace frames_limiter {
 
 		LARGE_INTEGER _sleep_interval{};
 
-		void* _dx_hooked_address = 0;
+		XFW::Hooks::HookmanagerD3D& _hooks_d3d;
 
 
 	};
