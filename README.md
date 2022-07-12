@@ -1,6 +1,6 @@
 # Frames Limiter
 
-[![Build status](https://ci.appveyor.com/api/projects/status/hm7t5shi98ei1lex?svg=true)](https://ci.appveyor.com/project/poliroid/frames-limiter)
+[![Build status](https://ci.appveyor.com/api/projects/status/0b2ptbcp9724qjew?svg=true)](https://ci.appveyor.com/project/poliroid/frames-limiter-i0g6r)
 [![Visits](https://gitlab.poliroid.ru/api/badge/frames-limiter/visits)](https://gitlab.com/wot-public-mods/frames-limiter)
 [![Downloads](https://gitlab.poliroid.ru/api/badge/frames-limiter/downloads)](https://gitlab.com/wot-public-mods/frames-limiter/-/releases)
 [![Donate](https://cdn.poliroid.ru/gitlab/donate.svg)](https://poliroid.ru/donate)
