@@ -2,3 +2,4 @@
 output/
 ~output/
 __pycache__/
+*.swc
