@@ -1,15 +1,28 @@
-cmake_minimum_required (VERSION 3.0)
+# SPDX-License-Identifier: LGPL-3.0-or-later
+# Copyright (c) 2021-2022 Mikhail Paulyshka
 
+# project
+cmake_minimum_required (VERSION 3.23)
 project(frames_limiter)
 
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(libpython REQUIRED)
-find_package(xfw_hooks REQUIRED)
 
-add_library(frames_limiter SHARED )
+#
+# packages
+#
 
+set(PYBIND11_NOPYTHON ON)
+find_package(Python2 COMPONENTS Development.Module REQUIRED)
+find_package(pybind11 REQUIRED)
+find_package(xfw_native_hooks REQUIRED)
+
+
+
+#
+# Library
+#
+
+add_library(frames_limiter SHARED)
 target_sources(frames_limiter PRIVATE
     "dllmain.cpp"
     "dllmain.h"
@@ -30,12 +43,16 @@ target_compile_definitions(frames_limiter PRIVATE "-DNOMINMAX")
 target_compile_definitions(frames_limiter PRIVATE "-D_USE_MATH_DEFINES")
 target_compile_definitions(frames_limiter PRIVATE "-D_CRT_SECURE_NO_WARNINGS")
 
-target_link_libraries(frames_limiter xfw_hooks::xfw_hooks)
-target_link_libraries(frames_limiter libpython::python27)
+target_link_libraries(frames_limiter Python2::Module pybind11::pybind11)
+target_link_libraries(frames_limiter xfw_native_hooks::xfw_native_hooks)
 target_link_libraries(frames_limiter shlwapi Winmm ntdll)
 
 set_target_properties(frames_limiter PROPERTIES COMPILE_FLAGS "/wd4005 /wd5033")
 set_target_properties(frames_limiter PROPERTIES SUFFIX ".pyd")
+set_target_properties(frames_limiter PROPERTIES CXX_STANDARD 20)
+set_target_properties(frames_limiter PROPERTIES CXX_STANDARD_REQUIRED ON)
+
+
 
 #
 # Install

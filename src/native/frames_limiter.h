@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include <xfw_hooks_d3d.h>
+#include <xfw_native_hooks_d3d.h>
 
 namespace frames_limiter {
 	
@@ -37,7 +37,7 @@ namespace frames_limiter {
 
 		LARGE_INTEGER _sleep_interval{};
 
-		XFW::Hooks::HookmanagerD3D& _hooks_d3d;
+		XFW::Native::Hooks::HookmanagerD3D& _hooks_d3d;
 
 
 	};

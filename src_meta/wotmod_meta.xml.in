@@ -1,6 +1,0 @@
-<root>
-    <id>poliroid.frames_limiter</id>
-    <version>{{VERSION}}</version>
-    <name>Frames Limiter module</name>
-    <description>Adds to game Frames Limiter feature</description>
-</root>

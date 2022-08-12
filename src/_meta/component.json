@@ -1,0 +1,9 @@
+{
+    "architecture": [ "x86_32", "x86_64"],
+    "xfw_prefix": "poliroid_frames_limiter",
+    "xfw_features": ["native","python"],
+    "xfw_url": "https://gitlab.com/wot-public-mods/frames-limiter",
+    "xfw_url_update": "https://gitlab.com/wot-public-mods/frames-limiter",
+    "xfw_wot_versions": ["1.18.0.0"],
+    "xfw_wot_versions_strategy": "allow_newer"
+}

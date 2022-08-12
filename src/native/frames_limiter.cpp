@@ -19,7 +19,7 @@ using namespace std::placeholders;
 
 namespace frames_limiter {
 
-	FramesLimiter::FramesLimiter() : _hooks_d3d(XFW::Hooks::HookmanagerD3D::instance())
+	FramesLimiter::FramesLimiter() : _hooks_d3d(XFW::Native::Hooks::HookmanagerD3D::instance())
 	{
 		set_target_fps(0);
 
@@ -61,7 +61,7 @@ namespace frames_limiter {
 
 		_hooks_d3d.init();
 		if (_hooks_d3d.inited()) {
-			_hooks_d3d.IDXGISwapChain_Present_register("poliroid_frames_limiter", XFW::Hooks::HookPlace::Before,
+			_hooks_d3d.IDXGISwapChain_Present_register("poliroid_frames_limiter", XFW::Native::Hooks::HookPlace::Before,
 				std::bind(&FramesLimiter::onPresent, this, _1, _2, _3));
 			result = true;
 		}
@@ -76,7 +76,7 @@ namespace frames_limiter {
 		bool result = false;
 
 		if (_hooks_d3d.inited()) {
-			_hooks_d3d.IDXGISwapChain_Present_unregister("poliroid_frames_limiter", XFW::Hooks::HookPlace::Before);
+			_hooks_d3d.IDXGISwapChain_Present_unregister("poliroid_frames_limiter", XFW::Native::Hooks::HookPlace::Before);
 			result = true;
 		}
 
