@@ -1,0 +1,7 @@
+{
+    "sdk_components": [
+        "com.modxvm.xfw.native",
+        "com.modxvm.xfw.native.hooks",
+        "org.pypi.pybind11"
+    ]
+}
