@@ -1,26 +1,19 @@
+"""
+SPDX-License-Identifier: LGPL-3.0-or-later
+Copyright (c) 2022 Andrey Andruschyshyn
+Copyright (c) 2022 Mikhail Paulyshka
+"""
 
 #
-# XWF Framework methods implementations
+# Imports
 #
 
-__all__ = ('xfw_module_init', 'xfw_is_module_loaded', )
-
-__is_module_loaded = False
-
-def xfw_module_init():
-	global __is_module_loaded
-	__is_module_loaded = True
-
-def xfw_is_module_loaded():
-	global __is_module_loaded
-	return __is_module_loaded
-
-
-
+# cpython
 import logging
+
+# WoT
 import BigWorld
 import constants
-
 from account_helpers.settings_core.options import UserPrefsFloatSetting, UserPrefsBoolSetting
 from frameworks.wulf import WindowLayer
 from gui.app_loader.settings import APP_NAME_SPACE
@@ -35,6 +28,22 @@ from helpers import dependency
 from PlayerEvents import g_playerEvents
 from Settings import g_instance as settingsInst
 from skeletons.gui.shared.utils import IHangarSpace
+
+# xfw.native
+from xfw_native.python import XFWNativeModuleWrapper
+
+
+#
+# Exports
+#
+
+__all__ = ('xfw_module_init', 'xfw_is_module_loaded', )
+
+
+
+#
+# Constants
+#
 
 SETTINGS_LOBBY_LINKAGE = 'FramesLimiterSettingsLobbyHookUI'
 SETTINGS_LOBBY_HOOK = 'frames_limiter_settings_lobby_hook.swf'
@@ -61,17 +70,33 @@ labeles_l10n = {
 		'tooltipText': "{HEADER}Maximum frame rate{/HEADER}{BODY}Sets the maximum frame rate for 3D rendering.\nFrame rate limitation is most often used for:\n\n• Reducing the load and as a consequence of heat and noise in the video card.\n• Increased stability and smooth gameplay.\n• Increase the battery life when using a laptop.{/BODY}",
 	}
 }
-LOCALIZATION = labeles_l10n.get(constants.DEFAULT_LANGUAGE, None)
-if not LOCALIZATION:
-	LOCALIZATION = labeles_l10n.get('en')
-l10n = lambda key: LOCALIZATION.get(key, key)
 
-logger = logging.getLogger('FramesLimiter')
 
+
+#
+# Global Vers
+#
+
+logger = None
 g_controller = None
 
-MAX_FRAME_RATE = settingsInst.engineConfig.readInt('renderer/maxFrameRate', 1000)
-REDUCED_FRAME_RATE = settingsInst.engineConfig.readInt('renderer/reducedFrameRate', 60)
+MAX_FRAME_RATE = 0
+REDUCED_FRAME_RATE = 0
+LOCALIZATION = None
+
+
+
+#
+# Helpers
+#
+
+l10n = lambda key: LOCALIZATION.get(key, key)
+
+
+
+#
+# Classes
+#
 
 class FramesLimiterController(object):
 
@@ -92,8 +117,8 @@ class FramesLimiterController(object):
 		self._framesLimit = 0
 		self._isBattle = False
 		self.__state = {}
-		self.__native_object = None
-		self._load_native()
+		self.__native_module = XFWNativeModuleWrapper(CPP_PACKAGE_NAME, CPP_PACKAGE_FILENAME, CPP_MODULE_NAME)
+		self.__native_object = getattr(self.__native_module, CPP_OBJECT_NAME)()
 
 		# subscrive to lobby space load
 		# for override ingame maxFrameRate value
@@ -117,54 +142,14 @@ class FramesLimiterController(object):
 			self._isBattle = False
 			self.sync_native()
 
-	def _load_native(self):
-
-		# load XFW stuff
-		try:
-			import xfw_loader.python as loader
-		except ImportError:
-			logger.error('XFW Native is not installed')
-			return
-
-		# load frame limiter module
-		try:
-			xfwnative = loader.get_mod_module('com.modxvm.xfw.native')
-			if not xfwnative:
-				logger.error('XFW Native is not available')
-				return
-
-			if not xfwnative.unpack_native(CPP_PACKAGE_NAME):
-				logger.error('Failed to unpack native module')
-				return
-
-			native_module = xfwnative.load_native(CPP_PACKAGE_NAME, CPP_PACKAGE_FILENAME, CPP_MODULE_NAME)
-			if not native_module:
-				logger.error("Failed to load native module.")
-				return
-
-			self.__native_object = getattr(native_module, CPP_OBJECT_NAME)()
-			if not self.__native_object:
-				logger.error("Failed to load native module.")
-				return
-
-		except Exception:
-			logger.exception("exception when loading native library")
-
-	def call_native(self, name, *a, **kw):
-		if self.__native_object is None:
-			return
-		func = getattr(self.__native_object, name, None)
-		if func and callable(func):
-			return func(*a, **kw)
-
 	def sync_native(self):
 		if self.isStateChanged('isBattle', self._isBattle):
 			self._updateMaxFrameRate()
 		if self.isStateChanged('enabled', self.enabled):
 			self._updateMaxFrameRate(True)
-			self.call_native('set_hook_status', self.enabled)
+			self.__native_object.set_hook_status(self.enabled)
 		if self.isStateChanged('fps', self.framesLimit):
-			self.call_native('set_target_fps', self.framesLimit)
+			self.__native_object.set_target_fps(self.framesLimit)
 
 	def isStateChanged(self, name, value):
 		if name not in self.__state:
@@ -236,23 +221,53 @@ class UserPrefsIntSettings(UserPrefsFloatSetting):
 		value = int(value)
 		super(UserPrefsIntSettings, self)._set(value)
 
-g_controller = FramesLimiterController()
 
-g_entitiesFactories.addSettings(ViewSettings(SETTINGS_LOBBY_LINKAGE, FramesLimiterSettingsHookLobby, SETTINGS_LOBBY_HOOK, WindowLayer.WINDOW, None, ScopeTemplates.GLOBAL_SCOPE))
-g_entitiesFactories.addSettings(ViewSettings(SETTINGS_BATTLE_INJECTOR, View, SETTINGS_BATTLE_HOOK, WindowLayer.WINDOW, None, ScopeTemplates.GLOBAL_SCOPE))
-g_entitiesFactories.addSettings(ViewSettings(SETTINGS_BATTLE_LINKAGE, FramesLimiterSettingsHookBattle, None, WindowLayer.UNDEFINED, None, ScopeTemplates.DEFAULT_SCOPE))
 
-if not settingsInst.userPrefs.has_key(SETTINGS_KEY_ENABLED):
-	settingsInst.userPrefs.write(SETTINGS_KEY_ENABLED, 'false')
-if not settingsInst.userPrefs.has_key(SETTINGS_KEY_VALUE):
-	settingsInst.userPrefs.write(SETTINGS_KEY_VALUE, '60')
+#
+# XFW Loader
+#
 
-ServicesLocator.settingsCore.options.settings += ((SETTINGS_KEY_ENABLED, UserPrefsBoolSetting(SETTINGS_KEY_ENABLED)), )
-ServicesLocator.settingsCore.options.indices[SETTINGS_KEY_ENABLED] = max(ServicesLocator.settingsCore.options.indices.values()) + 1
-ServicesLocator.settingsCore.options.settings += ((SETTINGS_KEY_VALUE, UserPrefsIntSettings(SETTINGS_KEY_VALUE)), )
-ServicesLocator.settingsCore.options.indices[SETTINGS_KEY_VALUE] = max(ServicesLocator.settingsCore.options.indices.values()) + 1
+__is_module_loaded = False
 
-g_controller.enabled = bool(ServicesLocator.settingsCore.getSetting(SETTINGS_KEY_ENABLED))
-g_controller.framesLimit = int(ServicesLocator.settingsCore.getSetting(SETTINGS_KEY_VALUE))
+def xfw_module_init():
+	global logger
+	global g_controller
+	logger = logging.getLogger('FramesLimiter')
+	g_controller = FramesLimiterController()
 
-g_eventBus.addListener(AppLifeCycleEvent.INITIALIZED, g_controller.onAppInitialized, scope=EVENT_BUS_SCOPE.GLOBAL)
+	g_entitiesFactories.addSettings(ViewSettings(SETTINGS_LOBBY_LINKAGE, FramesLimiterSettingsHookLobby, SETTINGS_LOBBY_HOOK, WindowLayer.WINDOW, None, ScopeTemplates.GLOBAL_SCOPE))
+	g_entitiesFactories.addSettings(ViewSettings(SETTINGS_BATTLE_INJECTOR, View, SETTINGS_BATTLE_HOOK, WindowLayer.WINDOW, None, ScopeTemplates.GLOBAL_SCOPE))
+	g_entitiesFactories.addSettings(ViewSettings(SETTINGS_BATTLE_LINKAGE, FramesLimiterSettingsHookBattle, None, WindowLayer.UNDEFINED, None, ScopeTemplates.DEFAULT_SCOPE))
+
+	if not settingsInst.userPrefs.has_key(SETTINGS_KEY_ENABLED):
+		settingsInst.userPrefs.write(SETTINGS_KEY_ENABLED, 'false')
+	if not settingsInst.userPrefs.has_key(SETTINGS_KEY_VALUE):
+		settingsInst.userPrefs.write(SETTINGS_KEY_VALUE, '60')
+
+	ServicesLocator.settingsCore.options.settings += ((SETTINGS_KEY_ENABLED, UserPrefsBoolSetting(SETTINGS_KEY_ENABLED)), )
+	ServicesLocator.settingsCore.options.indices[SETTINGS_KEY_ENABLED] = max(ServicesLocator.settingsCore.options.indices.values()) + 1
+	ServicesLocator.settingsCore.options.settings += ((SETTINGS_KEY_VALUE, UserPrefsIntSettings(SETTINGS_KEY_VALUE)), )
+	ServicesLocator.settingsCore.options.indices[SETTINGS_KEY_VALUE] = max(ServicesLocator.settingsCore.options.indices.values()) + 1
+
+	g_controller.enabled = bool(ServicesLocator.settingsCore.getSetting(SETTINGS_KEY_ENABLED))
+	g_controller.framesLimit = int(ServicesLocator.settingsCore.getSetting(SETTINGS_KEY_VALUE))
+
+	g_eventBus.addListener(AppLifeCycleEvent.INITIALIZED, g_controller.onAppInitialized, scope=EVENT_BUS_SCOPE.GLOBAL)
+
+	global MAX_FRAME_RATE
+	global REDUCED_FRAME_RATE
+	MAX_FRAME_RATE = settingsInst.engineConfig.readInt('renderer/maxFrameRate', 1000)
+	REDUCED_FRAME_RATE = settingsInst.engineConfig.readInt('renderer/reducedFrameRate', 60)
+
+	global LOCALIZATION
+	LOCALIZATION = labeles_l10n.get(constants.DEFAULT_LANGUAGE, None)
+	if not LOCALIZATION:
+		LOCALIZATION = labeles_l10n.get('en')
+
+	global __is_module_loaded
+	__is_module_loaded = True
+
+
+def xfw_is_module_loaded():
+	global __is_module_loaded
+	return __is_module_loaded
