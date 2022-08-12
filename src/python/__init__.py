@@ -13,8 +13,8 @@ import logging
 
 # WoT
 import BigWorld
-import constants
 from account_helpers.settings_core.options import UserPrefsFloatSetting, UserPrefsBoolSetting
+from constants import DEFAULT_LANGUAGE
 from frameworks.wulf import WindowLayer
 from gui.app_loader.settings import APP_NAME_SPACE
 from gui.shared import g_eventBus, EVENT_BUS_SCOPE
@@ -24,8 +24,7 @@ from gui.Scaleform.framework import g_entitiesFactories, ViewSettings, ScopeTemp
 from gui.Scaleform.framework.entities.BaseDAAPIComponent import BaseDAAPIComponent
 from gui.Scaleform.framework.entities.View import View
 from gui.Scaleform.framework.managers.loaders import SFViewLoadParams
-from helpers import dependency
-from PlayerEvents import g_playerEvents
+from helpers import getClientLanguage, dependency
 from Settings import g_instance as settingsInst
 from skeletons.gui.shared.utils import IHangarSpace
 
@@ -260,8 +259,12 @@ def xfw_module_init():
 	REDUCED_FRAME_RATE = settingsInst.engineConfig.readInt('renderer/reducedFrameRate', 60)
 
 	global LOCALIZATION
-	LOCALIZATION = labeles_l10n.get(constants.DEFAULT_LANGUAGE, None)
-	if not LOCALIZATION:
+	client_language = getClientLanguage()
+	if client_language in labeles_l10n:
+		LOCALIZATION = labeles_l10n[client_language]
+	elif DEFAULT_LANGUAGE in labeles_l10n:
+		LOCALIZATION = labeles_l10n[DEFAULT_LANGUAGE]
+	else:
 		LOCALIZATION = labeles_l10n.get('en')
 
 	global __is_module_loaded
