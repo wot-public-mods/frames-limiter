@@ -1,11 +1,8 @@
-version: 1.0.{build}
+version: 2.0.{build}
 image: Visual Studio 2022
 install:
-- pwsh: >-
-    git submodule -q update --init --recursive
-
-    $host.SetShouldExit(0)
+  - git submodule update --init --recursive
 build_script:
-- ps: ./build.ps1
+  - pwsh: ./build.ps1
 artifacts:
-- path: ~output/deploy/*
+  - path: ~output/deploy/*

@@ -1,5 +1,9 @@
 # Changelog
 
+## v2.0.0
+
+* fix compatibility with WoT 1.18.0
+
 ## v1.0.4
 
 * fix compatibility with XFW.Native 2.7.0
