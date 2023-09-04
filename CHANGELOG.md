@@ -1,5 +1,9 @@
 # Changelog
 
+## v2.0.1
+
+* Ukrainian localization
+
 ## v2.0.0
 
 * fix compatibility with WoT 1.18.0
