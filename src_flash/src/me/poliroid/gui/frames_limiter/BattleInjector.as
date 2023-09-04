@@ -1,7 +1,7 @@
-﻿package com.poliroid.gui.frames_limiter
+﻿package me.poliroid.gui.frames_limiter
 {
 	import mods.common.AbstractComponentInjector;
-	import com.poliroid.gui.frames_limiter.BattleHook;
+	import me.poliroid.gui.frames_limiter.BattleHook;
 
 	public class BattleInjector extends AbstractComponentInjector 
 	{

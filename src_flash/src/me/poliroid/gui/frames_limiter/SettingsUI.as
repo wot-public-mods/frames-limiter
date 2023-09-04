@@ -1,4 +1,4 @@
-﻿package com.poliroid.gui.frames_limiter
+﻿package me.poliroid.gui.frames_limiter
 {
 
 	import flash.events.Event;

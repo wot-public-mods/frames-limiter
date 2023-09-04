@@ -179,7 +179,7 @@
     <Property name="copy">true</Property>
     <Property name="default">true</Property>
     <Property name="embed">false</Property>
-    <Property name="filename">stuff_settings_lobby_hook.svg</Property>
+    <Property name="filename">frames_limiter_settings_lobby_hook.svg</Property>
     <Property name="imagesPath">images</Property>
     <Property name="includeHiddenLayers">true</Property>
     <Property name="optimizeForCH">false</Property>
@@ -187,11 +187,11 @@
   </PublishProperties>
   <PublishProperties id="BBC1F806-66F2-4339-9306-FA48C7549E59" name="Mac Projector" otf="true" enabled="true">
     <Property name="default">true</Property>
-    <Property name="filename">stuff_settings_lobby_hook.app</Property>
+    <Property name="filename">frames_limiter_settings_lobby_hook.app</Property>
   </PublishProperties>
   <PublishProperties id="BBC2F906-78F3-4239-9305-FA48C8549E59" name="Win Projector" otf="true" enabled="true">
     <Property name="default">true</Property>
-    <Property name="filename">stuff_settings_lobby_hook.exe</Property>
+    <Property name="filename">frames_limiter_settings_lobby_hook.exe</Property>
   </PublishProperties>
 </flash_profile>
 </flash_profiles>
