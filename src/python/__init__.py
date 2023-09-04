@@ -1,6 +1,6 @@
 """
 SPDX-License-Identifier: LGPL-3.0-or-later
-Copyright (c) 2022 Andrey Andruschyshyn
+Copyright (c) 2022-2023 Andrey Andruschyshyn
 Copyright (c) 2022 Mikhail Paulyshka
 """
 
@@ -54,7 +54,7 @@ SETTINGS_BATTLE_HOOK = 'frames_limiter_settings_battle_hook.swf'
 SETTINGS_KEY_ENABLED = 'FramesLimiterEnabled'
 SETTINGS_KEY_VALUE = 'FramesLimiterValue'
 
-CPP_PACKAGE_NAME = 'poliroid.frames_limiter'
+CPP_PACKAGE_NAME = 'me.poliroid.frames_limiter'
 CPP_PACKAGE_FILENAME = 'frames_limiter.pyd'
 CPP_MODULE_NAME = 'Frames_Limiter'
 CPP_OBJECT_NAME = 'Frames_Limiter_Instance'

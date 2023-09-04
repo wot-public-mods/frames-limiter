@@ -1,5 +1,5 @@
 {    
-    "id": "poliroid.frames_limiter",
+    "id": "me.poliroid.frames_limiter",
     "name": "Frames Limiter",
     "description": "Adds to game Frames Limiter feature",
     "version": "2.0.0",
