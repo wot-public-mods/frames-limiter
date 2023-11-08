@@ -1,27 +1,12 @@
 ﻿package me.poliroid.gui.frames_limiter
 {
-
 	import flash.display.MovieClip;
-	import flash.events.Event;
-
-	import scaleform.clik.data.DataProvider;
-	import scaleform.clik.events.ButtonEvent;
-	import scaleform.clik.events.IndexEvent;
-	import scaleform.clik.events.ListEvent;
-	import scaleform.clik.events.SliderEvent;
 
 	import net.wg.data.constants.generated.LAYER_NAMES;
 	import net.wg.gui.components.containers.MainViewContainer;
-	import net.wg.gui.components.controls.CheckBox;
-	import net.wg.gui.components.controls.LabelControl;
-	import net.wg.gui.components.controls.Slider;
-	import net.wg.gui.events.ViewStackEvent;
-	import net.wg.gui.lobby.settings.SoundSettings;
-	import net.wg.gui.lobby.settings.SoundVivoxForm;
-	import net.wg.gui.lobby.settings.SettingsWindow;
-	import net.wg.gui.lobby.settings.events.SettingViewEvent;
+
 	import net.wg.infrastructure.base.AbstractView;
-	import net.wg.infrastructure.events.LifeCycleEvent;
+
 	import net.wg.infrastructure.events.LoaderEvent;
 	import net.wg.infrastructure.interfaces.IManagedContent;
 	import net.wg.infrastructure.interfaces.ISimpleManagedContainer;

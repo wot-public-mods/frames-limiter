@@ -1,14 +1,10 @@
 ﻿package me.poliroid.gui.frames_limiter
 {
-
 	import flash.events.Event;
 
 	import net.wg.data.constants.generated.LAYER_NAMES;
 	import net.wg.gui.components.containers.MainViewContainer;
-	import net.wg.gui.events.ViewStackEvent;
-	import net.wg.gui.lobby.settings.GameSettings;
-	import net.wg.gui.lobby.settings.GameSettingsContent;
-	import net.wg.gui.lobby.settings.SettingsWindow;
+
 	import net.wg.infrastructure.events.LoaderEvent;
 	import net.wg.infrastructure.interfaces.IManagedContent;
 	import net.wg.infrastructure.interfaces.ISimpleManagedContainer;
@@ -16,9 +12,6 @@
 	import net.wg.infrastructure.managers.impl.ContainerManagerBase;
 
 	import mods.common.BattleDisplayable;
-
-	import flash.display.MovieClip;
-	import flash.events.MouseEvent;
 
 	import me.poliroid.gui.frames_limiter.SettingsUI;
 

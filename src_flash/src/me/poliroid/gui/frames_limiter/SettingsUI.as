@@ -1,25 +1,20 @@
 ﻿package me.poliroid.gui.frames_limiter
 {
-
 	import flash.events.Event;
-	
-	import scaleform.clik.data.DataProvider;
-	import scaleform.clik.events.ListEvent;
+
 	import scaleform.clik.events.IndexEvent;
 	import scaleform.clik.events.SliderEvent;
-	
+
 	import net.wg.infrastructure.interfaces.IView;
-	import net.wg.gui.lobby.settings.SettingsWindow;
-	import net.wg.gui.lobby.settings.GraphicSettings;
-	import net.wg.gui.events.ViewStackEvent;
-	import net.wg.infrastructure.events.LifeCycleEvent;
-	import net.wg.gui.components.controls.DropdownMenu;
-	import net.wg.gui.components.controls.LabelControl;
-	import net.wg.gui.lobby.settings.events.SettingViewEvent;
+	import net.wg.gui.components.controls.CheckBox;
+	import net.wg.gui.components.controls.InfoIcon;
 	import net.wg.gui.components.controls.NumericStepper;
 	import net.wg.gui.components.controls.Slider;
-	import net.wg.gui.components.controls.InfoIcon;
-	import net.wg.gui.components.controls.CheckBox;
+	import net.wg.gui.events.ViewStackEvent;
+	import net.wg.gui.lobby.settings.GraphicSettings;
+	import net.wg.gui.lobby.settings.SettingsWindow;
+	import net.wg.gui.lobby.settings.events.SettingViewEvent;
+	import net.wg.infrastructure.events.LifeCycleEvent;
 
 	public class SettingsUI
 	{
