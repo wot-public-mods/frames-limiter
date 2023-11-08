@@ -9,6 +9,7 @@ Copyright (c) 2022 Mikhail Paulyshka
 #
 
 # cpython
+import functools
 import logging
 
 # WoT
@@ -26,6 +27,7 @@ from gui.Scaleform.framework.entities.View import View
 from gui.Scaleform.framework.managers.loaders import SFViewLoadParams
 from helpers import getClientLanguage, dependency
 from Settings import g_instance as settingsInst
+from skeletons.gui.impl import IGuiLoader
 from skeletons.gui.shared.utils import IHangarSpace
 
 # xfw.native
@@ -104,6 +106,7 @@ l10n = lambda key: LOCALIZATION.get(key, key)
 class FramesLimiterController(object):
 
 	hangarSpace = dependency.descriptor(IHangarSpace)
+	uiLoader = dependency.descriptor(IGuiLoader)
 
 	@property
 	def framesLimit(self):
@@ -129,11 +132,15 @@ class FramesLimiterController(object):
 
 	def onAppInitialized(self, event):
 
+		parent = self.uiLoader.windowsManager.getMainWindow()
+
 		if event.ns == APP_NAME_SPACE.SF_BATTLE:
 			app = ServicesLocator.appLoader.getApp(APP_NAME_SPACE.SF_BATTLE)
 			if not app:
 				return
-			BigWorld.callback(0.0, lambda:app.loadView(SFViewLoadParams(SETTINGS_BATTLE_INJECTOR)))
+			params = SFViewLoadParams(SETTINGS_BATTLE_INJECTOR, parent=parent)
+			posponed_load = functools.partial(app.loadView, params)
+			BigWorld.callback(.1, posponed_load)
 			self._isBattle = True
 			self.sync_native()
 
@@ -141,7 +148,7 @@ class FramesLimiterController(object):
 			app = ServicesLocator.appLoader.getApp(APP_NAME_SPACE.SF_LOBBY)
 			if not app:
 				return
-			app.loadView(SFViewLoadParams(SETTINGS_LOBBY_LINKAGE))
+			app.loadView(SFViewLoadParams(SETTINGS_LOBBY_LINKAGE, parent=parent))
 			self._isBattle = False
 			self.sync_native()
 
