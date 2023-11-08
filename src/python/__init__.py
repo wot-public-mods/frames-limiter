@@ -1,6 +1,6 @@
 """
 SPDX-License-Identifier: LGPL-3.0-or-later
-Copyright (c) 2022-2023 Andrey Andruschyshyn
+Copyright (c) 2022-2023 Andrii Andruschyshyn
 Copyright (c) 2022 Mikhail Paulyshka
 """
 

@@ -2,6 +2,10 @@
 
 ## v2.0.1
 
+* improved views loading
+
+## v2.0.1
+
 * Ukrainian localization
 
 ## v2.0.0
