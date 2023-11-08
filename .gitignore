@@ -3,3 +3,4 @@ output/
 ~output/
 __pycache__/
 *.swc
+src_flash/*.swf
