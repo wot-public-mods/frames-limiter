@@ -1,6 +1,10 @@
 # Changelog
 
-## v2.0.1
+## v3.0.0
+
+* fix compatibility with MT 1.30.0
+
+## v2.0.2
 
 * improved views loading
 
