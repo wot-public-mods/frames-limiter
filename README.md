@@ -16,4 +16,4 @@ Tested for compatibility software
 | Joxi            |  ✅ | ✅ |
 
 ### An example of new option in ingame settings
-![An example of new option in ingame settings](https://gitlab.com/wot-public-mods/frames-limiter/-/raw/master/ui_preview.png)
+![An example of new option in ingame settings](./ui_preview.png)
