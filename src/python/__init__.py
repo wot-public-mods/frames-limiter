@@ -278,13 +278,11 @@ def owg_module_init():
 
 	global __initialized
 	__initialized = True
+	return True
 
 
 def owg_module_event(eventName, *args, **kwargs):
     pass
 
 def owg_module_fini():
-    global __native
-    if __native is not None:
-        __native.fini()
-        __native = None
+	return True

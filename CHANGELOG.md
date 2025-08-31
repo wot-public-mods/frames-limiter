@@ -1,5 +1,9 @@
 # Changelog
 
+## v4.0.1
+
+* fix initialization status
+
 ## v4.0.0
 
 * switch to OpenWG.Common 2.0.0
