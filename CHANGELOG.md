@@ -1,5 +1,9 @@
 # Changelog
 
+## v4.0.0
+
+* switch to OpenWG.Common 2.0.0
+
 ## v3.0.0
 
 * fix compatibility with MT 1.30.0

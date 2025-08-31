@@ -1,7 +1,7 @@
 """
 SPDX-License-Identifier: LGPL-3.0-or-later
 Copyright (c) 2022-2023 Andrii Andruschyshyn
-Copyright (c) 2022 Mikhail Paulyshka
+Copyright (c) 2022,2025 Mikhail Paulyshka
 """
 
 #
@@ -30,15 +30,8 @@ from Settings import g_instance as settingsInst
 from skeletons.gui.impl import IGuiLoader
 from skeletons.gui.shared.utils import IHangarSpace
 
-# xfw.native
-from xfw_native.python import XFWNativeModuleWrapper
-
-
-#
-# Exports
-#
-
-__all__ = ('xfw_module_init', 'xfw_is_module_loaded', )
+# openwg
+import openwg_native as native
 
 
 
@@ -123,7 +116,7 @@ class FramesLimiterController(object):
 		self._framesLimit = 0
 		self._isBattle = False
 		self.__state = {}
-		self.__native_module = XFWNativeModuleWrapper(CPP_PACKAGE_NAME, CPP_PACKAGE_FILENAME, CPP_MODULE_NAME)
+		self.__native_module = native.OpenWGNativeModuleWrapper(CPP_PACKAGE_NAME, CPP_PACKAGE_FILENAME, CPP_MODULE_NAME)
 		self.__native_object = getattr(self.__native_module, CPP_OBJECT_NAME)()
 
 		# subscrive to lobby space load
@@ -234,12 +227,17 @@ class UserPrefsIntSettings(UserPrefsFloatSetting):
 
 
 #
-# XFW Loader
+# OpenWG Loader
 #
 
-__is_module_loaded = False
+__initialized = False
 
-def xfw_module_init():
+def owg_module_loaded():
+    global __initialized
+    return __initialized
+
+
+def owg_module_init():
 	global logger
 	global g_controller
 	logger = logging.getLogger('FramesLimiter')
@@ -278,10 +276,15 @@ def xfw_module_init():
 	else:
 		LOCALIZATION = labeles_l10n.get('en')
 
-	global __is_module_loaded
-	__is_module_loaded = True
+	global __initialized
+	__initialized = True
 
 
-def xfw_is_module_loaded():
-	global __is_module_loaded
-	return __is_module_loaded
+def owg_module_event(eventName, *args, **kwargs):
+    pass
+
+def owg_module_fini():
+    global __native
+    if __native is not None:
+        __native.fini()
+        __native = None

@@ -1,7 +1,9 @@
 # Frames Limiter
 
 **Frames Limiter** is a modification for the game "World Of Tanks" which allows you to cap your game FPS.  
-**Frames Limiter** is based on the [XFW](https://gitlab.com/xvm/xfw) project (dependent on the native module)  
+
+
+**Frames Limiter** requires the [OpenWG.Common](https://gitlab.com/openwg/wot.common) library
 
 Tested for compatibility software
 | Software        | x86 | x64 |

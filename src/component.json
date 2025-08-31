@@ -1,0 +1,7 @@
+{
+    "prefix": "poliroid_frames_limiter",
+    "dependencies": [
+        "net.openwg.native",
+        "net.openwg.native.hooks"
+    ]
+}
