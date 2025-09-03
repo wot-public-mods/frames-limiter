@@ -171,7 +171,10 @@ class FramesLimiterController(object):
 		if self.enabled:
 			maxFrameRate = 1000
 		if self.isStateChanged('maxFrameRate', maxFrameRate) or forced:
-			BigWorld.wg_setMaxFrameRate(maxFrameRate)
+			try:
+				BigWorld.wg_setMaxFrameRate(maxFrameRate)
+			except:
+				BigWorld.setMaxFrameRate(maxFrameRate)
 
 	def __onSpaceCreate(self, *a, **kw):
 		self._updateMaxFrameRate(True)

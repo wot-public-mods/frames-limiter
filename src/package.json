@@ -2,6 +2,6 @@
     "id": "me.poliroid.frames_limiter",
     "name": "Frames Limiter",
     "description": "Adds to game Frames Limiter feature",
-    "version": "4.0.1",
+    "version": "4.0.2",
     "path_license": "../LICENSE.md"
 }

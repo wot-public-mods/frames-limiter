@@ -1,5 +1,9 @@
 # Changelog
 
+## v4.0.2
+
+* fix compatibility with MT 1.37.0
+
 ## v4.0.1
 
 * fix initialization status
